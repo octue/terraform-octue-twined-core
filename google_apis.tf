@@ -2,7 +2,6 @@ locals {
   apis = toset(
     [
       "artifactregistry.googleapis.com", # Artifact Registry is used to store docker images of the Twined services.
-      "cloudbuild.googleapis.com",
       "iam.googleapis.com",            # IAM provides fine-grained authentication and authorisation to use and access the Twined services and input/output data.
     ]
   )
