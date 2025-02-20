@@ -9,7 +9,7 @@ resource "google_iam_workload_identity_pool" "github_actions_pool" {
 resource "google_iam_workload_identity_pool_provider" "github_actions_provider" {
   workload_identity_pool_provider_id = "github-actions-provider"
   display_name                       = "github-actions-provider"
-  workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool.id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool.workload_identity_pool_id
   project                            = var.google_cloud_project_id
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
