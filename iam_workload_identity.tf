@@ -10,7 +10,7 @@ resource "google_iam_workload_identity_pool_provider" "github_actions_provider" 
   workload_identity_pool_provider_id = "github-actions-provider"
   display_name                       = "github-actions-provider"
   workload_identity_pool_id          = google_iam_workload_identity_pool.github_actions_pool.id
-  project                            = data.google_project.project.number
+  project                            = var.google_cloud_project_id
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
   attribute_condition = "attribute.repository_owner_id==\"${var.github_organisation}\""
