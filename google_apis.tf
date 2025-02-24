@@ -2,7 +2,8 @@ locals {
   apis = toset(
     [
       "artifactregistry.googleapis.com", # Artifact Registry is used to store docker images of the Twined services.
-      "iam.googleapis.com",            # IAM provides fine-grained authentication and authorisation to use and access the Twined services and input/output data.
+      "bigquery.googleapis.com",         # BigQuery provides the event store for Twined service events (questions, results, log messages etc.).
+      "iam.googleapis.com",              # IAM provides fine-grained authentication and authorisation to use and access the Twined services and input/output data.
     ]
   )
 }
