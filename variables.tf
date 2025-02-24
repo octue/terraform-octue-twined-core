@@ -11,3 +11,15 @@ variable "google_cloud_region" {
 variable "github_organisation" {
   type = string
 }
+
+
+variable "developer_service_account_names" {
+  type = set(string)
+}
+
+
+variable "deletion_protection" {
+  type        = bool
+  default     = true
+  description = "Apply deletion protection to the event store and storage buckets."
+}
