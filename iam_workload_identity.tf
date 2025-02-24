@@ -13,7 +13,7 @@ resource "google_iam_workload_identity_pool_provider" "github_actions_provider" 
   project                            = var.google_cloud_project_id
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
-  attribute_condition = "attribute.repository_owner_id==\"${var.github_organisation}\""
+  attribute_condition = "attribute.repository_owner==\"${var.github_organisation}\""
 
   attribute_mapping = {
     "attribute.actor"            = "assertion.actor"
