@@ -17,10 +17,3 @@ resource "google_project_iam_member" "github_actions__roles" {
   member     = "serviceAccount:${google_service_account.github_actions_service_account.email}"
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
-
-
-resource "google_storage_bucket_iam_member" "github_actions__default_bucket__storage__admin" {
-  bucket   = google_storage_bucket.default.name
-  role     = "roles/storage.admin"
-  member   = "serviceAccount:${google_service_account.github_actions_service_account.email}"
-}
