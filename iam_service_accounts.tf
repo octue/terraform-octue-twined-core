@@ -7,8 +7,8 @@ resource "google_service_account" "github_actions_service_account" {
 }
 
 
-resource "google_service_account" "developers" {
-  for_each     = var.developer_service_account_names
+resource "google_service_account" "maintainers" {
+  for_each     = var.maintainer_service_account_names
   account_id   = each.key
   display_name = each.key
   project      = var.google_cloud_project_id
