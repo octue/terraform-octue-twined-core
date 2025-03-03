@@ -9,8 +9,8 @@ resource "google_service_account" "github_actions_service_account" {
 
 resource "google_service_account" "maintainers" {
   for_each     = var.maintainer_service_account_names
-  account_id   = each.key
-  display_name = each.key
+  account_id   = "maintainer-${each.key}"
+  display_name = "maintainer-${each.key}"
   project      = var.google_cloud_project_id
   description  = "Allow ${each.key} to access most resources related to Octue Twined services."
   depends_on   = [time_sleep.wait_for_google_apis_to_enable]
