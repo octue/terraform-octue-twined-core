@@ -114,9 +114,10 @@ The module needs to authenticate with google cloud before it can be used:
 
 ## Destruction
 > [!WARNING]
-> If the `deletion_protection` input is set to `true`, it must first be set to `false` in a `terraform apply` run before 
-> running `terraform destroy`. Not doing this can lead to a state needing targeted Terraform commands and/or manual 
-> configuration changes to recover from.
+> If the `deletion_protection` input is set to `true`, it must first be set to `false` and `terraform apply` run before 
+> running `terraform destroy` or any other operation that would result in the destruction or replacement of the cloud 
+> storage bucket or event store BigQuery table. Not doing this can lead to a state needing targeted Terraform commands 
+> and/or manual configuration changes to recover from.
 
 Disable `deletion_protection` and run:
 ```shell
