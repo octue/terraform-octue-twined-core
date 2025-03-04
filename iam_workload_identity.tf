@@ -13,7 +13,7 @@ resource "google_iam_workload_identity_pool_provider" "github_actions_provider" 
   project                            = var.google_cloud_project_id
   depends_on                         = [time_sleep.wait_for_google_apis_to_enable]
 
-  attribute_condition = "attribute.repository_owner==\"${var.github_organisation}\""
+  attribute_condition = "attribute.repository_owner==\"${var.github_account}\""
 
   attribute_mapping = {
     "attribute.actor"            = "assertion.actor"
@@ -33,7 +33,7 @@ data "google_iam_policy" "workload_identity_pool_policy" {
   binding {
     role = "roles/iam.workloadIdentityUser"
     members = [
-      "principalSet://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool.workload_identity_pool_id}/attribute.repository_owner/${var.github_organisation}"
+      "principalSet://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions_pool.workload_identity_pool_id}/attribute.repository_owner/${var.github_account}"
     ]
   }
   depends_on = [time_sleep.wait_for_google_apis_to_enable]

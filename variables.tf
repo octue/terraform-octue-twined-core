@@ -10,9 +10,9 @@ variable "google_cloud_region" {
 }
 
 
-variable "github_organisation" {
+variable "github_account" {
   type = string
-  description = "The name of the organisation or other account on GitHub to link to the workload identity federation provider."
+  description = "The name of the GitHub account to link to the workload identity federation provider. The provider is used to authenticate with google cloud in GitHub Actions workflows."
 }
 
 
