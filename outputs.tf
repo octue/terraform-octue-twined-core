@@ -10,6 +10,7 @@ output "storage_bucket_url" {
 }
 
 
-output "bigquery_events_table_id" {
+output "event_store_id" {
   value = "${google_bigquery_dataset.service_event_dataset.dataset_id}.${google_bigquery_table.service_event_table.table_id}"
+  description = "The ID of the BigQuery table used as the event store. Provide in '<dataset-name>.<table-name>' format."
 }

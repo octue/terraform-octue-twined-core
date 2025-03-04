@@ -143,6 +143,6 @@ See [`variables.tf`](/variables.tf) for descriptions.
 |-------------------------------------|----------|
 | `artifact_registry_repository_name` | `string` | 
 | `storage_bucket_url`                | `string` | 
-| `bigquery_events_table_id`          | `string` | 
+| `event_store_id`                    | `string` | 
 
 See [`outputs.tf`](/outputs.tf) for descriptions.
