@@ -18,7 +18,7 @@ variable "github_account" {
 
 variable "maintainer_service_account_names" {
   type        = set(string)
-  description = "The names of each maintainer IAM service account that should be created. They'll be prefixed with 'maintainer-'."
+  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
 }
 
 
