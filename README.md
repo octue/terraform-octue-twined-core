@@ -1,5 +1,6 @@
 # terraform-octue-twined-core
-A Terraform module that deploys the core storage and IAM resources for an Octue Twined services network.  
+A Terraform module for deploying the core storage and IAM resources for an Octue Twined services network to google cloud.  
+
 
 # Resources
 These resources are automatically deployed:
@@ -10,6 +11,7 @@ These resources are automatically deployed:
   - GitHub Actions to a) build and push Twined service images to the artifact registry; b) test services
 - A workload identity pool and provider allowing GitHub actions to authenticate with google cloud
 - A cloud storage bucket to store input, output, and diagnostics data for Twined services
+
 
 # Installation and usage
 
@@ -22,5 +24,103 @@ These resources are automatically deployed:
 > module. This allows the option to spin down the Kubernetes cluster provided by the other module while keeping the core
 > resources that contain all data produced by your Twined services. Spinning the cluster down entirely can save on 
 > running costs in periods of extended non-use while keeping all data available.
+
+Add the below blocks to your Terraform configuration and run:
+```shell
+terraform plan
+```
+
+If you're happy with the plan, run:
+```shell
+terraform apply
+```
+and approve the run.
+
+## Minimal configuration
+
+```terraform
+# main.tf
+
+terraform {
+  required_version = ">= 1.8.0"
+
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~>6.12"
+    }
+  }
+}
+
+
+provider "google" {
+  project = var.google_cloud_project_id
+  region  = var.google_cloud_region
+}
+        
+
+module "octue_twined_core" {
+  source = "git::github.com/octue/terraform-octue-twined-core.git?ref=0.1.0"
+  google_cloud_project_id          = var.google_cloud_project_id
+  google_cloud_region              = var.google_cloud_region
+  github_account                   = var.github_account
+  maintainer_service_account_names = var.maintainer_service_account_names
+}
+```
+
+```terraform
+# variables.tf
+variable "google_cloud_project_id" {
+  type    = string
+  default = "<google-cloud-project-id>"
+}
+
+variable "google_cloud_region" {
+  type    = string
+  default = "<google-cloud-region>"
+}
+
+variable "github_account" {
+  type    = string
+  default = "<your-github-account>"
+}
+
+variable "maintainer_service_account_names" {
+  type    = set(string)
+  default = ["person1", "person2"]
+}
+```
+
+## Dependencies
+- Terraform: `>= 1.8.0, <2`
+- Providers:
+  - `hashicorp/google`: `~>6.12`
+- Google cloud APIs:
+  - The Cloud Resource Manager API must be [enabled manually](https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com) 
+    before using the module
+  - All other required google cloud APIs are enabled automatically by the module 
+
+## Credentials
+The module needs to authenticate with google cloud before it can be used.
+
+1. Create a service account for Terraform and assign it the `editor` and `owner` basic IAM permissions
+2. Download a JSON key file for this service account
+3. If using Terraform Cloud, follow [these instructions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#using-terraform-cloud).
+   before deleting the key file from your computer 
+4. If not using Terraform Cloud, follow [these instructions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication-configuration)
+   or use another [authentication method](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication).
+
+
+# Destruction
+> [!WARNING]
+> If the `deletion_protection` input is set to `true`, it must first be set to `false` in a `terraform apply` run before 
+> running `terraform destroy`. Not doing this can lead to a state needing targeted Terraform commands and/or manual 
+> configuration changes to recover from.
+
+Disable `deletion_protection` and run:
+```shell
+terraform destroy
+```
+
 
 # Input/output reference
