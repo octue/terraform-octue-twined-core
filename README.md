@@ -2,7 +2,7 @@
 A Terraform module for deploying the core storage and IAM resources for an Octue Twined services network to google cloud.  
 
 
-# Resources
+# Infrastructure
 These resources are automatically deployed:
 - An artifact registry repository for storing Octue Twined service revision docker images
 - A BigQuery table acting as an event store for Twined service events
@@ -22,8 +22,8 @@ These resources are automatically deployed:
 > [!TIP]
 > Deploy this module in a separate Terraform configuration (directory/workspace) to the [terraform-octue-twined-cluster](https://github.com/octue/terraform-octue-twined-cluster)
 > module. This allows the option to spin down the Kubernetes cluster provided by the other module while keeping the core
-> resources that contain all data produced by your Twined services. Spinning the cluster down entirely can save on 
-> running costs in periods of extended non-use while keeping all data available.
+> resources that contain all data produced by your Twined services available. Spinning the cluster down entirely can 
+> save on running costs in periods of extended non-use while keeping all data available.
 
 Add the below blocks to your Terraform configuration and run:
 ```shell
@@ -36,7 +36,7 @@ terraform apply
 ```
 and approve the run.
 
-## Minimal configuration
+## Example configuration
 
 ```terraform
 # main.tf
@@ -60,11 +60,10 @@ provider "google" {
         
 
 module "octue_twined_core" {
-  source = "git::github.com/octue/terraform-octue-twined-core.git?ref=0.1.0"
+  source = "git::github.com/octue/terraform-octue-twined-core.git?ref=0.1.1"
   google_cloud_project_id          = var.google_cloud_project_id
   google_cloud_region              = var.google_cloud_region
   github_account                   = var.github_account
-  maintainer_service_account_names = var.maintainer_service_account_names
 }
 ```
 
@@ -84,11 +83,6 @@ variable "google_cloud_region" {
 variable "github_account" {
   type    = string
   default = "<your-github-account>"
-}
-
-variable "maintainer_service_account_names" {
-  type    = set(string)
-  default = ["person1", "person2"]
 }
 ```
 
@@ -127,13 +121,13 @@ terraform destroy
 
 # Input reference
 
-| Name                                | Type          | Required | Default   |
-|-------------------------------------|---------------|----------|-----------| 
-| `google_cloud_project_id`           | `string`      | Yes      | N/A       |  
-| `google_cloud_region`               | `string`      | Yes      | N/A       | 
-| `github_account`                    | `string`      | Yes      | N/A       |                 
-| `maintainer_service_account_names`  | `set(string)` | Yes      | N/A       | 
-| `deletion_protection`               | `bool`        | No       | `true`    | 
+| Name                                | Type          | Required | Default       |
+|-------------------------------------|---------------|----------|---------------| 
+| `google_cloud_project_id`           | `string`      | Yes      | N/A           |  
+| `google_cloud_region`               | `string`      | Yes      | N/A           | 
+| `github_account`                    | `string`      | Yes      | N/A           |                 
+| `maintainer_service_account_names`  | `set(string)` | No       | `["default"]` | 
+| `deletion_protection`               | `bool`        | No       | `true`        | 
 
 See [`variables.tf`](/variables.tf) for descriptions.
 
