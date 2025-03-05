@@ -64,7 +64,6 @@ module "octue_twined_core" {
   google_cloud_project_id          = var.google_cloud_project_id
   google_cloud_region              = var.google_cloud_region
   github_account                   = var.github_account
-  maintainer_service_account_names = var.maintainer_service_account_names
 }
 ```
 
@@ -84,11 +83,6 @@ variable "google_cloud_region" {
 variable "github_account" {
   type    = string
   default = "<your-github-account>"
-}
-
-variable "maintainer_service_account_names" {
-  type    = set(string)
-  default = ["person1", "person2"]
 }
 ```
 
@@ -127,13 +121,13 @@ terraform destroy
 
 # Input reference
 
-| Name                                | Type          | Required | Default   |
-|-------------------------------------|---------------|----------|-----------| 
-| `google_cloud_project_id`           | `string`      | Yes      | N/A       |  
-| `google_cloud_region`               | `string`      | Yes      | N/A       | 
-| `github_account`                    | `string`      | Yes      | N/A       |                 
-| `maintainer_service_account_names`  | `set(string)` | Yes      | N/A       | 
-| `deletion_protection`               | `bool`        | No       | `true`    | 
+| Name                                | Type          | Required | Default       |
+|-------------------------------------|---------------|----------|---------------| 
+| `google_cloud_project_id`           | `string`      | Yes      | N/A           |  
+| `google_cloud_region`               | `string`      | Yes      | N/A           | 
+| `github_account`                    | `string`      | Yes      | N/A           |                 
+| `maintainer_service_account_names`  | `set(string)` | No       | `["default"]` | 
+| `deletion_protection`               | `bool`        | No       | `true`        | 
 
 See [`variables.tf`](/variables.tf) for descriptions.
 
