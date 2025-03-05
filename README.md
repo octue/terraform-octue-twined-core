@@ -2,7 +2,7 @@
 A Terraform module for deploying the core storage and IAM resources for an Octue Twined services network to google cloud.  
 
 
-# Resources
+# Infrastructure
 These resources are automatically deployed:
 - An artifact registry repository for storing Octue Twined service revision docker images
 - A BigQuery table acting as an event store for Twined service events
@@ -22,8 +22,8 @@ These resources are automatically deployed:
 > [!TIP]
 > Deploy this module in a separate Terraform configuration (directory/workspace) to the [terraform-octue-twined-cluster](https://github.com/octue/terraform-octue-twined-cluster)
 > module. This allows the option to spin down the Kubernetes cluster provided by the other module while keeping the core
-> resources that contain all data produced by your Twined services. Spinning the cluster down entirely can save on 
-> running costs in periods of extended non-use while keeping all data available.
+> resources that contain all data produced by your Twined services available. Spinning the cluster down entirely can 
+> save on running costs in periods of extended non-use while keeping all data available.
 
 Add the below blocks to your Terraform configuration and run:
 ```shell
@@ -36,7 +36,7 @@ terraform apply
 ```
 and approve the run.
 
-## Minimal configuration
+## Example configuration
 
 ```terraform
 # main.tf
