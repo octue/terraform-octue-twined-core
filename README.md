@@ -25,6 +25,7 @@ These resources are automatically deployed:
 # Installation and usage
 Add the below blocks to your Terraform configuration and run:
 ```shell
+terraform init
 terraform plan
 ```
 
