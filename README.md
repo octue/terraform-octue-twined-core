@@ -2,7 +2,7 @@
 A Terraform module for deploying the core storage and IAM resources for an Octue Twined services network to google cloud.  
 
 > [!IMPORTANT]
-> Deploying this Terraform module is a prerequisite to deploying the [terraform-octue-twined-cluster](https://github.com/octue/terraform-octue-twined-cluster). 
+> Deploying this Terraform module is a prerequisite to deploying the [terraform-octue-twined-cluster](https://github.com/octue/terraform-octue-twined-cluster)
 > module. You must deploy both to have a cloud-based Octue Twined services network. See [a live example here](https://github.com/octue/twined-infrastructure).
 
 > [!TIP]
